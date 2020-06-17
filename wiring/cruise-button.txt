@@ -1,0 +1,8 @@
+1. black - orange - silver = zasilanie zielonej diony przed wlaczeniem
+2. green - silver = green light (+ po wlaczeniu)
+3. balck - red - silver = gnd dla podswietlenia
+4. red - silver = podswietlenie
+5. black - silver = GND dla zielonego przycisku
+
+po włączeniu
+1=2
