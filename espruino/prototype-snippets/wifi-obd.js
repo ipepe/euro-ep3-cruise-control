@@ -25,19 +25,7 @@ setTimeout(function () {
 
     setTimeout(function(){
         console.log("connect OBD");
-        client = require("net").connect({
-            host: "192.168.0.10", port: 35000
-        }, function() {
-            console.log('client connected');
-            client.on('data', function(data) {
-                console.log(">>>"+JSON.stringify(data));
-            });
-            client.write("AT RV\r");
 
-            client.on('end', function() {
-                console.log('client disconnected');
-            });
-        });
     }, 5000);
 
 }, 5000);
