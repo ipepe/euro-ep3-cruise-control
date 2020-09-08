@@ -1,18 +1,11 @@
-var stop = false;
-var wifi = null;
-var client = null;
+var wifi = require('Wifi');
+var ssid = 'WiFi-OBDII';
 
-setTimeout(function () {
-    if (stop) return;
-    console.log("Stop was false. Running the code.");
-
-    // setup wifi
-    wifi = require('Wifi');
-    var ssid = 'WiFi-OBDII';
-
-    wifi.setHostname('espruino-' + getSerial());
-    wifi.stopAP();
+wifi.setHostname('espruino-' + getSerial());
+wifi.stopAP();
+var connectWifi = function(){
     wifi.connect(ssid,{}, function (e) {
+        console.log('After wifi connect');
         if (!e) {
             wifi.save();
             console.log('connected to', ssid, arguments);
@@ -22,10 +15,28 @@ setTimeout(function () {
         console.log(wifi.getDetails());
         console.log(wifi.getIP());
     });
+};
 
-    setTimeout(function(){
-        console.log("connect OBD");
+connectWifi();
 
-    }, 5000);
+setInterval(function(){
+    if(wifi.getDetails().status !== 'connected'){
+        connectWifi();
+    }
+}, 1000);
 
-}, 5000);
+c = require("net").connect({host: "192.168.0.10", port: 35000}, function(client) {
+    console.log('client connected', arguments);
+
+    client.on('data', function(data) {
+        console.log(">"+JSON.stringify(data));
+    });
+    client.write("ATE0\r\n"); // echo off
+    client.write("ATH1\r\n"); // headers on
+    client.write("ATL0\r\n"); // linefeeds OFF
+    client.write("AT RV\r\n"); // read voltage
+    client.write("AT RV\r\n"); // read voltage
+    client.on('end', function() {
+        console.log('client disconnected');
+    });
+});

@@ -6,6 +6,12 @@ https://github.com/brendan-w/python-OBD/blob/master/obd/elm327.py
 https://www.elmelectronics.com/wp-content/uploads/2016/07/ELM327DS.pdf
 https://github.com/PowerBroker2/ELMduino
 
+# PID materials:
+https://www.codeproject.com/Articles/36459/PID-process-control-a-Cruise-Control-example
+https://gist.github.com/bradley219/5373998
+
+# Others
+
 Buzzer (gdy silnik zimny i obroty wysokie)
 
 czujnik temperatury w samochodzie
